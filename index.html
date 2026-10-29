@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Download TXT File</title>
+</head>
+<body>
+
+    <h2>Type your text and download it:</h2>
+    <textarea id="myTextInput" rows="6" cols="50">Hello, this is the default text inside my file!</textarea>
+    <br><br>
+    <button onclick="downloadTxtFile()">Download as .txt</button>
+
+    <script>
+        function downloadTxtFile() {
+            // 1. Get the text from the text area
+            const textContent = document.getElementById("myTextInput").value;
+            
+            // 2. Create a Blob (Binary Large Object) containing the text
+            const blob = new Blob([textContent], { type: "text/plain" });
+            
+            // 3. Create a temporary invisible anchor link
+            const link = document.createElement("a");
+            
+            // 4. Set the download file name and file source URL
+            link.download = "my-downloaded-file.txt";
+            link.href = URL.createObjectURL(blob);
+            
+            // 5. Trigger the download by programmatically clicking the link
+            link.click();
+            
+            // 6. Clean up the URL object from memory
+            URL.revokeObjectURL(link.href);
+        }
+    </script>
+
+</body>
+</html>
